@@ -24,7 +24,7 @@
     "pk": 3,
     "fields": {
       "title": "Cards on the Table",
-      "author": "Carolyn Keene",
+      "author": "Agatha Christie",
       "description": "Detective Hercules Poirot unravels a mysterious murder between 4 suspects in a Bridge game",
       "genre": 1
     }
@@ -71,7 +71,7 @@
   },
   {
     "model": "book_app.book",
-    "pk": 7,
+    "pk": 8,
     "fields": {
       "title": "Good Omens",
       "author": "Terry Pratchett and Neil Gaiman",

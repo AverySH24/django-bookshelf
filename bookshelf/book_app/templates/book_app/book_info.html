@@ -6,5 +6,6 @@
 <p>Description: {{book.description}}</p>
 <br>
 <br>
-<a href = "{% url 'edit_book' book.genre_id book.id %}">EDIT THIS BOOK!</a>
+<a href = "{% url 'edit_book' genre_id book.id %}">EDIT BOOK</a>
 {% endblock %}
+

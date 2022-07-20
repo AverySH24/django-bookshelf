@@ -1,13 +1,12 @@
 {% extends 'book_app/index.html' %}
 
 {%block content%}
-<h1>Genre: {{genre}}</h1>
+<h1>Genre: {{genre.name}}</h1>
 {% for book in books%}
-<!-- <p>{{book}}</p> -->
+<!-- Note syntax for the url: 'book_info' is the name of the url in urls.py, genre.id will go in the <int:genre_id> and book.id will go in the <int:book_id> within the url. Be aware of the quotations (single vs double) -->
 <a href = "{% url 'book_info' genre.id book.id %}">{{book.title}}</a>
 <br>
-
 {% endfor %}
-<br>
 <a href = "{% url 'add_book' genre.id %}">ADD NEW BOOK</a>
+
 {% endblock %}

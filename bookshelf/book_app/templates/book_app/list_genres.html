@@ -3,6 +3,8 @@
 {%block content%}
 <h1>Genres</h1>
 {% for genre in genres %}
-<a href = "{% url 'list_books' genre.id %}">{{genre.name}}</a>
+<!-- Note syntax for the url: 'list_books' is the name of the url in urls.py, genre.id will go in the <int:genre_id> within the url. Be aware of the quotations (single vs double) -->
+<a href = "{% url 'list_books' genre.id  %}">{{genre.name}}</a>
+<br>
 {% endfor %}
 {% endblock %}

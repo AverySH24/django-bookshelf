@@ -1,21 +1,18 @@
 import json
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
-# IMPORT MODELS
-from .models import Book, Genre
-
-# CSRF TOKEN
+from  .models import Book, Genre
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+def base(request):
+    return render(request, 'book_app/base.html')
+
 def list_genres(request):
     genres = Genre.objects.all()
-    print(genres)
     data = {"genres" : genres}
     return render(request, 'book_app/list_genres.html', data)
 
 def list_books(request, genre_id):
-    # return HttpResponse("<h1> LIST BOOKS </h1>")
     genre_books = Book.objects.all().filter(genre_id = genre_id)
     genre_name = Genre.objects.all().get(id = genre_id)
     data = {"books": genre_books, "genre": genre_name}
@@ -23,16 +20,18 @@ def list_books(request, genre_id):
 
 def book_info(request, genre_id, book_id):
     book = Book.objects.all().get(id = book_id)
-    data = {"book" : book}
+    data = {"book" : book,
+    "genre_id": genre_id}
     return render(request, 'book_app/book_info.html', data)
 
-# Post vs Get
 @csrf_exempt
 def add_book(request, genre_id):
     if request.method == "POST":
         body = json.loads(request.body)
+        # MAKING BOOK OBJECT
         newBook = Book(title = body["title"], author = body["author"], description = body["description"], genre_id = genre_id)
         newBook.save()
+        return JsonResponse({})
     # default get request
     return render(request, "book_app/add_book.html")
 
@@ -51,5 +50,7 @@ def edit_book(request, genre_id, book_id):
 
         #save the information
         book.save()
+        return JsonResponse({})
+    # We need to pass this book because we want to populate the input values with its data
     data = {"book": Book.objects.all().get(id = book_id)}
     return render(request, "book_app/edit_book.html", data)
